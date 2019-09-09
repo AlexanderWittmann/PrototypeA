@@ -13,14 +13,18 @@ public class Player : MonoBehaviour
     void Update()
     {
         transform.Translate(Input.GetAxis("Vertical") * Time.deltaTime * speed, 0f, - Input.GetAxis("Horizontal")*Time.deltaTime*speed);
+        //float moveHorizontal = Input.GetAxis("Horizontal");
+        //float moveVertical = Input.GetAxis("Vertical");
+
+        //Vector3 movement = new Vector3(moveVertical, 0f, -moveHorizontal);
+
+        //rb.AddForce(movement * speed);
     }
 
     void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("here1");
         if (collision.gameObject.tag == "Wall")
         {
-            Debug.Log("here2");
             rb.velocity = Vector3.zero;
             
         }
