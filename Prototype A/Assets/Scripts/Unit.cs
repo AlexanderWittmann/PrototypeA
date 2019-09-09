@@ -5,13 +5,16 @@ public class Unit : MonoBehaviour
 {
 
 
+    CapsuleCollider m_Collider;
     public Transform target;
-    float speed = 5;
+    float speed = 4;
     Vector3[] path;
     int targetIndex;
 
     void Start()
     {
+        m_Collider = GetComponent<CapsuleCollider>();
+        m_Collider.radius = 1.3f;
         PathRequestManager.RequestPath(transform.position, target.position, OnPathFound);
     }
     private void Update()

@@ -7,14 +7,14 @@ public class MoveTargetBlock: MonoBehaviour
     public LayerMask hitLayers;
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))//If the player has left clicked
+        if (Input.GetMouseButtonDown(0))
         {
-            Vector3 mouse = Input.mousePosition;//Get the mouse Position
-            Ray castPoint = Camera.main.ScreenPointToRay(mouse);//Cast a ray to get where the mouse is pointing at
-            RaycastHit hit;//Stores the position where the ray hit.
-            if (Physics.Raycast(castPoint, out hit, Mathf.Infinity, hitLayers))//If the raycast doesnt hit a wall
+            Vector3 mouse = Input.mousePosition;
+            Ray castPoint = Camera.main.ScreenPointToRay(mouse);
+            RaycastHit hit;
+            if (Physics.Raycast(castPoint, out hit, Mathf.Infinity, hitLayers))
             {
-                this.transform.position = hit.point + new Vector3(0f,.5f,0f);//Move the target to the mouse position
+                this.transform.position = hit.point + new Vector3(0f,.5f,0f);
             }
         }
     }
