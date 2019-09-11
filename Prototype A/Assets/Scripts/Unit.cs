@@ -36,8 +36,10 @@ public class Unit : MonoBehaviour
 
     IEnumerator FollowPath()
     {
+        GameObject playerobj = GameObject.FindGameObjectWithTag("Player");
+        bool move = playerobj.GetComponent<Player>().isMoving;
         Vector3 currentWaypoint = path[0];
-        while (true)
+        while (move)
         {
             if (transform.position == currentWaypoint)
             {

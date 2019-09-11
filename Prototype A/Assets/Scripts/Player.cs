@@ -7,12 +7,21 @@ public class Player : MonoBehaviour
 {
     Rigidbody rb;
     public float speed = 1f;
+    public bool isMoving;
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
     }
     void Update()
     {
+        if(Input.GetAxis("Vertical") != 0 || Input.GetAxis("Horizontal") != 0)
+        {
+            isMoving = true;
+        }
+        else
+        {
+            isMoving = false;
+        }
         transform.Translate(Input.GetAxis("Vertical") * Time.deltaTime * speed, 0f, -Input.GetAxis("Horizontal") * Time.deltaTime * speed);
 
         //float moveHorizontal = Input.GetAxis("Horizontal");
