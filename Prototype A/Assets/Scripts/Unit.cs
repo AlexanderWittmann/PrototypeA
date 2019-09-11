@@ -10,17 +10,32 @@ public class Unit : MonoBehaviour
     float speed = 4;
     Vector3[] path;
     int targetIndex;
+    public PathRequestManager manager;
+    Rigidbody rb;
 
     void Start()
     {
         m_Collider = GetComponent<CapsuleCollider>();
         m_Collider.radius = 1.3f;
-        PathRequestManager.RequestPath(transform.position, target.position, OnPathFound);
+        manager.RequestPath(transform.position, target.position, OnPathFound);
+        rb = GetComponent<Rigidbody>();
     }
     private void Update()
     {
         
-        PathRequestManager.RequestPath(transform.position, target.position, OnPathFound);
+        GameObject playerobj = GameObject.FindGameObjectWithTag("Player");
+        bool move = playerobj.GetComponent<Player>().isMoving;
+
+        if (move)
+        {
+
+            manager.RequestPath(transform.position, target.position, OnPathFound);
+        }
+        else
+        {
+            rb.velocity = Vector3.zero;
+            manager.RequestPath(transform.position, transform.position, OnPathFound);
+        }
     }
 
     public void OnPathFound(Vector3[] newPath, bool pathSuccessful)

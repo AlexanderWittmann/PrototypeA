@@ -16,15 +16,24 @@ public class PathRequestManager : MonoBehaviour
 
     void Awake()
     {
-        instance = this;
+        //instance = this;
         pathfinding = GetComponent<Pathfinding>();
     }
+    private void Update()
+    {
+        GameObject playerobj = GameObject.FindGameObjectWithTag("Player");
+        bool moving = playerobj.GetComponent<Player>().isMoving;
+        if (!moving)
+        {
+            instance.pathRequestQueue.Clear();
+        }
+    }
 
-    public static void RequestPath(Vector3 pathStart, Vector3 pathEnd, Action<Vector3[], bool> callback)
+    public void RequestPath(Vector3 pathStart, Vector3 pathEnd, Action<Vector3[], bool> callback)
     {
         PathRequest newRequest = new PathRequest(pathStart, pathEnd, callback);
-        instance.pathRequestQueue.Enqueue(newRequest);
-        instance.TryProcessNext();
+        pathRequestQueue.Enqueue(newRequest);
+        TryProcessNext();
     }
 
     void TryProcessNext()
